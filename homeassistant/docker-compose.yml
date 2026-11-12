@@ -1,0 +1,25 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: smarthub-ha
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8123:8123"
+    volumes:
+      - ./config:/config
+    environment:
+      TZ: Europe/Kyiv
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: smarthub-tunnel
+    restart: unless-stopped
+    profiles: ["tunnel"]
+    network_mode: "service:homeassistant"
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.docker.yml run
+    volumes:
+      - ${HOME}/.cloudflared:/etc/cloudflared:ro
+    depends_on:
+      - homeassistant

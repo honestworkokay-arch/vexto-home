@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.vexto.home.panel</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/node</string>
+    <string>server/index.js</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/macbookpro/Projects/vexto-home</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/Users/macbookpro/Library/Logs/VextoHome/panel.log</string>
+  <key>StandardErrorPath</key><string>/Users/macbookpro/Library/Logs/VextoHome/panel-error.log</string>
+</dict>
+</plist>

@@ -1,0 +1,64 @@
+title: Світло 3.2
+views:
+  - title: ДТЕК 3.2
+    path: dtek
+    cards:
+      - type: markdown
+        content: |
+          ## {{ states('sensor.dtek_3_2') }}
+
+          {{ state_attr('sensor.dtek_3_2', 'message') }}
+
+          **Міське живлення:** {{ state_attr('sensor.dtek_3_2', 'city_power') }}
+
+          **Повідомлення:** {{ state_attr('sensor.dtek_3_2', 'alert') or 'немає' }}
+      - type: markdown
+        title: Сьогодні за графіком
+        content: |
+          {% set rows = state_attr('sensor.dtek_3_2', 'offWindows') or [] %}
+          {% if rows | length == 0 %}
+          Відключень у графіку немає або графік ще не опублікований.
+          {% else %}
+          {% for row in rows %}
+          - {{ row.from }}–{{ row.to }} немає світла
+          {% endfor %}
+          {% endif %}
+      - type: markdown
+        title: Сьогодні зі зсувом +40 хв
+        content: |
+          {% set rows = state_attr('sensor.dtek_3_2', 'adjustedOffWindows') or [] %}
+          {% if rows | length == 0 %}
+          Немає скоригованих вікон.
+          {% else %}
+          Орієнтир, не вимір: світло зазвичай зникає приблизно на 40 хвилин пізніше.
+          {% for row in rows %}
+          - {{ row.from }}–{{ row.to }} очікуване вимкнення
+          {% endfor %}
+          {% endif %}
+      - type: markdown
+        title: Завтра за графіком
+        content: |
+          {% set rows = state_attr('sensor.dtek_3_2', 'tomorrowOffWindows') or [] %}
+          {% if rows | length == 0 %}
+          Графік на завтра ще не опублікований.
+          {% else %}
+          {% for row in rows %}
+          - {{ row.from }}–{{ row.to }} немає світла
+          {% endfor %}
+          {% endif %}
+      - type: markdown
+        title: Завтра +40 хв
+        content: |
+          {% set rows = state_attr('sensor.dtek_3_2', 'tomorrowAdjustedOffWindows') or [] %}
+          {% if rows | length == 0 %}
+          Немає скоригованих вікон на завтра.
+          {% else %}
+          {% for row in rows %}
+          - {{ row.from }}–{{ row.to }} очікуване вимкнення
+          {% endfor %}
+          {% endif %}
+      - type: entities
+        title: Xiaomi
+        entities:
+          - entity: sensor.dtek_3_2
+            name: Порівняння графіка і факту

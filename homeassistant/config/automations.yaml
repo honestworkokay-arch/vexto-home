@@ -1,0 +1,16 @@
+- id: dtek_32_power_still_on
+  alias: ДТЕК 3.2 — світло є всупереч графіку
+  description: Сповіщає, коли черга 3.2 вже має бути вимкнена, а розетка ще в мережі.
+  triggers:
+    - trigger: state
+      entity_id: sensor.dtek_3_2
+      attribute: mismatch
+      to: true
+  conditions: []
+  actions:
+    - action: persistent_notification.create
+      data:
+        title: Світло є, графік уже вимкнув
+        notification_id: dtek_32_mismatch
+        message: По графику света нет, а по факту свет есть
+  mode: single

@@ -1,0 +1,12 @@
+{
+  "name": "Vexto Дом",
+  "short_name": "Vexto",
+  "description": "Веб-панель умного дома. Позже тот же монитор встанет на Android-планшет.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#070708",
+  "theme_color": "#070708",
+  "lang": "ru"
+}

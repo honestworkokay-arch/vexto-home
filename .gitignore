@@ -1,0 +1,11 @@
+.env
+.xiaomi-devices.json
+.xiaomi-devices.json.tmp
+.xiaomi-reading.json
+.xiaomi-reading.json.tmp
+.network-scan.json
+.network-scan.json.tmp
+.network-labels.json
+.network-labels.json.tmp
+.DS_Store
+node_modules

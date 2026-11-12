@@ -1,0 +1,11 @@
+.env
+.ha-owner
+.gateway-key
+config/secrets.yaml
+config/.storage/
+config/.cloud/
+config/home-assistant.log*
+config/home-assistant_v2.db*
+config/deps/
+config/tts/
+data/

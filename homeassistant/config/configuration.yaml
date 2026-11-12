@@ -1,0 +1,56 @@
+default_config:
+
+homeassistant:
+  name: Smarthub
+  latitude: 48.4647
+  longitude: 35.0462
+  elevation: 155
+  unit_system: metric
+  time_zone: Europe/Kyiv
+  currency: UAH
+  country: UA
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+lovelace:
+  dashboards:
+    dtek-32:
+      mode: yaml
+      title: Світло 3.2
+      icon: mdi:transmission-tower
+      show_in_sidebar: true
+      filename: dashboards/dtek.yaml
+
+# Черга ДТЕК: змінна DTEK_GROUP у .env панелі, типово 3.2.
+# Telegram: TELEGRAM_BOT_TOKEN і TELEGRAM_CHAT_ID у homeassistant/.env, якщо знадобляться.
+rest:
+  - resource: http://host.docker.internal:4173/api/dtek
+    scan_interval: 60
+    timeout: 20
+    sensor:
+      - name: DTEK 3.2
+        unique_id: dtek_32_dnipro
+        value_template: "{{ value_json.headline }}"
+        json_attributes:
+          - message
+          - scheduled
+          - city_power
+          - mismatch
+          - windows
+          - offWindows
+          - adjustedOffWindows
+          - tomorrowOffWindows
+          - tomorrowAdjustedOffWindows
+          - alert
+          - lag
+          - scheduleStatus
+          - source
